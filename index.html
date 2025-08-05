@@ -1,0 +1,58 @@
+ 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重复输出工具</title>
+    <style>
+        /* 简单样式优化 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        #output {
+            margin-top: 20px;
+            white-space: pre-wrap; /* 允许长文本自动换行 */
+            word-wrap: break-word;
+            padding: 10px;
+            border: 1px solid #eee;
+            max-height: 90vh; /* 限制最大高度，避免页面过长 */
+            overflow-y: auto; /* 超出部分滚动 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 输出内容的容器 -->
+    <div id="output"></div>
+
+    <script>
+        // 页面加载完成后执行
+        window.addEventListener('DOMContentLoaded', () => {
+            // 弹出输入框（模态对话框）
+            const userInput = prompt('请输入要重复的内容（按回车确认）：');
+            
+            // 如果用户输入了内容（未点击取消且输入不为空）
+            if (userInput !== null && userInput.trim() !== '') {
+                // 获取输出容器
+                const outputDiv = document.getElementById('output');
+                
+                // 高效生成1万遍重复内容（使用数组join避免频繁DOM操作）
+                // 这里用 \n 分隔每一遍，配合CSS的pre-wrap实现换行
+                const repeatedContent = new Array(10000).fill(userInput).join('\n');
+                
+                // 将内容插入页面
+                outputDiv.textContent = repeatedContent;
+                
+                // 可选：控制台输出提示（开发调试用）
+                console.log(`已成功输出 ${userInput} 共 10000 遍`);
+            } else {
+                // 用户取消或输入空内容时的提示
+                alert('输入为空或已取消，未生成内容。');
+            }
+        });
+    </script>
+</body>
+</html>
+ 
